@@ -42,6 +42,28 @@ app.use(function(req, res, next) {
   next();
 });
 
+//MW de auto-logout
+app.use(function(req, res, next) {
+  var minutosActuales = new Date().getMinutes();
+  var segundosActuales = new Date().getSeconds();
+  var horaActual = minutosActuales + segundosActuales/60;
+  var horaAnterior = req.session.minutos + req.session.segundos/60;
+  //Si hay cambio de hora entre transacciones, sumamos a la nueva 60 minutos
+  if(horaAnterior > horaActual){
+    horaActual += 60;
+  }
+
+  if (req.session.user) {
+    if ((horaActual - horaAnterior) > 2) {
+      delete req.session.user;
+    } else {
+      req.session.minutos = new Date().getMinutes();
+      req.session.segundos = new Date().getSeconds();
+    }
+  };
+  next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
