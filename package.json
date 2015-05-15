@@ -10,7 +10,7 @@
     "npm": "1.4.x"
   },
   "devDependencies": {
-    "sqlite3": "^3.0.5"
+    "sqlite3": "~2.2.0"
   },
   "dependencies": {
     "body-parser": "~1.8.1",
@@ -19,12 +19,12 @@
     "ejs": "~0.8.5",
     "express": "~4.9.0",
     "express-partials": "^0.3.0",
-    "express-session": "^1.11.2",
-    "method-override": "^2.3.3",
+    "express-session": "~1.0.3",
+    "method-override": "~2.0.0",
     "morgan": "~1.3.0",
     "pg": "^4.1.1",
     "pg-hstore": "^2.3.2",
-    "sequelize": "~1.7.0",
+    "sequelize": "^2.1.0",
     "serve-favicon": "~2.1.3"
   }
 }
