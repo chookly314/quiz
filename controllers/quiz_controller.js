@@ -32,6 +32,7 @@ exports.load = function(req, res, next, quizId) {
 };
 
 // GET /quizes
+// GET /users/:userId/quizes
 exports.index = function(req, res) {
   //si hay query, buscamos lo que se pide
   if(req.query.search){
@@ -43,7 +44,12 @@ exports.index = function(req, res) {
       function(quizes) {
         res.render('quizes/busqueda', { quizes: quizes, errors: []})});
   } else {
-  models.Quiz.findAll().then(
+  var options = {};
+  if(req.user){
+    options.where = {UserId: req.user.id}
+  }
+
+  models.Quiz.findAll(options).then(
     function(quizes) {
       res.render('quizes/index.ejs', {quizes: quizes, errors: []});
     }
