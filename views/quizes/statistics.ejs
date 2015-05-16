@@ -1,0 +1,18 @@
+<h2><span>Página de </span>estadísticas</h2>
+<p>Número de preguntas: <%= quizes.length %></p>
+  <% var conComment=0; for (var i=0; i < quizes.length; i++) {%>
+	<%for(a in quizes[i].Comments){%>
+	  <%if(quizes[i].Comments[a]){%>
+	    <%conComment++;%>
+	  <%}%>
+	<%}%>	
+  <%}%>
+<p>Número de comentarios totales: <%= conComment %></p>
+<p>Número medio de comentarios por pregunta: <%= conComment/quizes.length %></p>
+  <% var sinComment=0; for (var j=0; j < quizes.length; j++) {%>
+	<%if(quizes[j].Comments[0]){%>
+	  <%sinComment++;%>
+	<%}%>
+  <%}%>
+<p>Número de preguntas sin comentarios: <%= quizes.length - sinComment %></p>
+<p>Número de preguntas con comentarios: <%= conComment %></p>
