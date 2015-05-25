@@ -7,6 +7,19 @@
   <input type="submit" value="Enviar">
 </form>
 
+<p><%if (session.user){%>
+<%if (fav.length === 0) {%>
+<form method="post" action="/user/<%=session.user.id%>/favourites/<%=quiz.id%>?_method=put">
+   <input type="image" onClick="return confirm('Añadir favorito');" src="/favNo.jpg" alt="Submit">
+</form>
+<%} else {%>
+<form method="post" action="/user/<%=session.user.id%>/favourites/<%=quiz.id%>?_method=delete">
+   <input type="image" onClick="return confirm('Eliminar favorito');" src="/favSi.jpg" alt="Submit">
+</form>
+<%}%>  
+<%}%>  
+</p>
+
 <p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
 
 <p><strong>Comentarios:</strong></p>

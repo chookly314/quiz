@@ -44,22 +44,53 @@ exports.index = function(req, res) {
       function(quizes) {
         res.render('quizes/busqueda', { quizes: quizes, errors: []})});
   } else {
-  var options = {};
-  if(req.user){
-    options.where = {UserId: req.user.id}
-  }
-
-  models.Quiz.findAll(options).then(
-    function(quizes) {
-      res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+    // si no hay query, cargamos la lista normalmente
+    var options = {};
+    var favs = [];
+    if(req.user){
+      options.where = {UserId: req.user.id}
     }
-  ).catch(function(error){next(error)})};
+
+    models.Quiz.findAll(options)
+    .then(function(quizes) {
+      if(req.session.user){
+        models.Favourites.findAll( {where: { UserId: Number(req.session.user.id) }})
+        .then(function(user){
+          for(index in quizes){
+            for(index2 in user){
+              if(user[index2].QuizId === quizes[index].id){
+                favs.push(quizes[index].id);
+                console.log("Id del quiz que metemos, es:" + user[index2].QuizId + " que es igual a " + quizes[index].id);
+              }
+            }
+          }
+          res.render("quizes/index", { quizes: quizes, favs: favs, errors: []});
+          console.log("Números de favoritos " + favs.length);
+        })
+      }
+    }).catch(function(error){next(error)});
+  }
 };
 
 // GET /quizes/:id
 exports.show = function(req, res) {
-  res.render('quizes/show', { quiz: req.quiz, errors: []});
-};            // req.quiz: instancia de quiz cargada con autoload
+  var fav = [];
+  var myUser = [];
+
+  if(req.session.user){
+    models.Favourites.find({ where: { UserId: Number(req.session.user.id), QuizId: Number(req.quiz.id) }})
+    .then(function(liked) {
+      if (liked) {
+        fav.push(req.quiz.id);
+        res.render('quizes/show', { quiz: req.quiz, fav: fav, errors: []});
+      } else {
+        res.render('quizes/show', { quiz: req.quiz, fav: fav, errors: []});
+      }
+    });
+  } else {
+    res.render('quizes/show', { quiz: req.quiz, fav: fav, errors: []});
+  }
+};            
 
 // GET /quizes/:id/answer
 exports.answer = function(req, res) {

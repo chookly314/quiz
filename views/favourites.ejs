@@ -1,0 +1,15 @@
+<table>
+<%if(quizes.length>0){%>
+  <% var i; for (i=0; i < quizes.length; i++) { %>        
+    <tr>
+      <td><a href="/quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
+        <td>
+            <form method="post" action="/user/<%=session.user.id%>/favourites/<%=quizes[i].id%>?_method=delete">
+              <input type="image" onClick="return confirm('Eliminar favorito');" src="/favSi.jpg" alt="Submit">
+            </form>
+        </td>
+    </tr> 
+  <%}%>
+<%}%>
+</table>
+<p/>
