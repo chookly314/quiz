@@ -60,12 +60,10 @@ exports.index = function(req, res) {
             for(index2 in user){
               if(user[index2].QuizId === quizes[index].id){
                 favs.push(quizes[index].id);
-                console.log("Id del quiz que metemos, es:" + user[index2].QuizId + " que es igual a " + quizes[index].id);
               }
             }
           }
           res.render("quizes/index", { quizes: quizes, favs: favs, errors: []});
-          console.log("Números de favoritos " + favs.length);
         })
       }
     }).catch(function(error){next(error)});
