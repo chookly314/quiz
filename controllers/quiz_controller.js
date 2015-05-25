@@ -66,6 +66,7 @@ exports.index = function(req, res) {
           res.render("quizes/index", { quizes: quizes, favs: favs, errors: []});
         })
       }
+      res.render("quizes/index", { quizes: quizes, favs: favs, errors: []});
     }).catch(function(error){next(error)});
   }
 };
