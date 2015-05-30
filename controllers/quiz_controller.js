@@ -176,4 +176,8 @@ exports.destroy = function(req, res) {
   }).catch(function(error){next(error)});
 };
 
-//  console.log("req.quiz.id: " + req.quiz.id);
+// GET /quizes/:id/showAnswer
+exports.showAnswer = function(req, res) {
+  res.render('quizes/showAnswer', { quiz: req.quiz, errors: []});
+};
+

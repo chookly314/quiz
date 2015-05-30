@@ -6,8 +6,10 @@
   <input type="text" name="respuesta" value="Respuesta"/>
   <input type="submit" value="Enviar">
 </form>
-
-<p><%if (session.user){%>
+<form method="get" action="/quizes/<%= quiz.id %>/showAnswer">
+    <input type="submit" value="Ver respuesta" />
+</form>
+<%if (session.user){%>
 <%if (fav.length === 0) {%>
 <form method="post" action="/user/<%=session.user.id%>/favourites/<%=quiz.id%>?_method=put">
    <input type="image" onClick="return confirm('Añadir favorito');" src="/favNo.jpg" alt="Submit">
@@ -28,18 +30,14 @@
 		<p>- <%=quiz.Comments[index].texto%>
     <% if(session.user && (session.user.isAdmin || (session.user && quiz.UserId === session.user.id))){%>
     <form method="post" action="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/delete?_method=delete">
-            <button type="submit" onClick="return confirm('Borrar comentario');">
-              borrar
-            </button>
+            <button type="submit" onClick="return confirm('Borrar comentario');">Borrar</button>
     </form></p>
     <%}%>
 	<%} else if(session.user && (session.user.isAdmin || (session.user && quiz.UserId === session.user.id))){%>
 			<p>- <%=quiz.Comments[index].texto%>
 			<a href="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/publish"><button>Publicar</button></a>
 			<form method="post" action="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/delete?_method=delete">
-            <button type="submit" onClick="return confirm('Borrar comentario');">
-              borrar
-            </button>
+            <button type="submit" onClick="return confirm('Borrar comentario');">Borrar</button>
       </form></p>
 
 	<%}%>
