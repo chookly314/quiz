@@ -76,3 +76,9 @@ exports.publish = function(req, res) {
     .catch(function(error){next(error)});
 
 };
+
+exports.delete = function(req, res) {
+  req.comment.destroy().then( function() {
+    res.redirect('/quizes/'+req.quiz.id);
+  }).catch(function(error){next(error)});
+};
