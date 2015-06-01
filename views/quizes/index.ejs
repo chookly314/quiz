@@ -17,9 +17,14 @@
                  <form method="post" action="/user/<%=session.user.id%>/favourites/<%=quizes[i].id%>?_method=put">
                     <input type="image" onClick="return confirm('Añadir favorito');" src="/favNo.jpg" alt="Submit">
                  </form>
-            <%} else {%>
-            <%for (var j=0; j<favs.length; j++) {
-              if(favs[j] === quizes[i].id) {%>
+        <%} else {%>
+         <%var isFav = false;%>
+          <%for (var j=0; j<favs.length; j++) {
+             if(favs[j] === quizes[i].id) {
+               var isFav = true;
+             }%>
+          <%}%>
+            <% if(isFav) {%>
                  <form method="post" action="/user/<%=session.user.id%>/favourites/<%=quizes[i].id%>?_method=delete">
                     <input type="image" onClick="return confirm('Eliminar favorito');" src="/favSi.jpg" alt="Submit">
                  </form>
@@ -28,7 +33,6 @@
                     <input type="image" onClick="return confirm('Añadir favorito');" src="/favNo.jpg" alt="Submit">
                  </form>
               <%}%> 
-            <%}%>
             <%}%>
         </td>
          <%} else {%>
@@ -38,8 +42,13 @@
                     <input type="image" onClick="return confirm('Añadir favorito');" src="/favNo.jpg" alt="Submit">
                  </form>
             <%} else {%>
-            <%for (var j=0; j<favs.length; j++) {
-              if(favs[j] === quizes[i].id) {%>
+             <%var isFav = false;%>
+                <%for (var j=0; j<favs.length; j++) {
+                    if(favs[j] === quizes[i].id) {
+                      var isFav = true;
+                    }%>
+                <%}%>
+            <% if(isFav) {%>
                  <form method="post" action="/user/<%=session.user.id%>/favourites/<%=quizes[i].id%>?_method=delete">
                     <input type="image" onClick="return confirm('Eliminar favorito');" src="/favSi.jpg" alt="Submit">
                  </form>
@@ -48,7 +57,6 @@
                     <input type="image" onClick="return confirm('Añadir favorito');" src="/favNo.jpg" alt="Submit">
                  </form>
               <%}%> 
-            <%}%>
             <%}%>
           <%}%>
         </td>
