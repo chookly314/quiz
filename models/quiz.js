@@ -13,6 +13,9 @@ module.exports = function(sequelize, DataTypes) {
       },
       image: {
         type: DataTypes.STRING
+      },
+      category: {
+        type: DataTypes.STRING
       }
     }
   );
